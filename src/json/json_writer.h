@@ -1,7 +1,8 @@
 #ifndef JSON_WRITER_H
 #define JSON_WRITER_H
-#define JSON_WRITER_VERSION "0.01.0"
+#define JSON_WRITER_VERSION "0.01.1"
 
+#include <stdbool.h>
 #include <stdio.h>
 
 typedef enum {
@@ -20,7 +21,10 @@ typedef enum {
 typedef struct {
     int indent_level;
     int indent_size;
+    int precision_float;
+    int precision_double;
     JsonFormatStyle style;
+    bool escape_unicode;
 } JsonFormatConfig;
 
 typedef struct {
@@ -46,7 +50,7 @@ void jw_float(JsonWriter *jw, float content);
 
 void jw_double(JsonWriter *jw, double content);
 
-void jw_bool(JsonWriter *jw, int content);
+void jw_bool(JsonWriter *jw, bool content);
 
 void jw_null(JsonWriter *jw);
 
@@ -58,10 +62,16 @@ void jw_object_start(JsonWriter *jw);
 
 void jw_object_end(JsonWriter *jw);
 
+void jw_stype_precision_float(JsonWriter *jw, int precision);
+
+void jw_stype_precision_double(JsonWriter *jw, int precision);
+
 void jw_style_compact(JsonWriter *jw);
 
-void jw_style_pretty(JsonWriter *jw, const int indent_size);
+void jw_style_pretty(JsonWriter *jw, int indent_size);
 
 void jw_style_pretty_tabs(JsonWriter *jw);
+
+void jw_style_escape_unicode(JsonWriter *jw, bool escape_unicode);
 
 #endif //JSON_WRITER_H

@@ -28,6 +28,9 @@ By default, uses **compact** style. Change style before writing any content:
 jw_style_pretty(jw, 4);        // 4 spaces indent
 jw_style_pretty_tabs(jw);      // tab indent
 jw_style_compact(jw);          // no indent/line breaks
+jw_style_escape_unicode(jw, true);
+jw_stype_precision_float(jw, -1);
+jw_stype_precision_double(jw, -1);
 ```
 
 ### Writing Primitives
@@ -38,7 +41,7 @@ jw_style_compact(jw);          // no indent/line breaks
 * `void jw_long(JsonWriter *jw, long long content);`
 * `void jw_float(JsonWriter *jw, float content);`
 * `void jw_double(JsonWriter *jw, double content);`
-* `void jw_bool(JsonWriter *jw, int content);`  (*0 = false, non-zero = true*)
+* `void jw_bool(JsonWriter *jw, bool content);`
 * `void jw_null(JsonWriter *jw);`
 
 ### Containers
@@ -61,7 +64,7 @@ int main(void) {
     jw_object_start(jw);
       jw_key(jw, "name"); jw_string(jw, "Alice");
       jw_key(jw, "age");  jw_integer(jw, 30);
-      jw_key(jw, "active"); jw_bool(jw, 1);
+      jw_key(jw, "active"); jw_bool(jw, true);
     jw_object_end(jw);
     jw_close(jw);
     return 0;
